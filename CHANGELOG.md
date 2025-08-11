@@ -2,7 +2,7 @@
 
 ## Version 0.1.0.1
 
-- Added readme
+- Added readme (and updated it)
 
 ## Version 0.1.0
 

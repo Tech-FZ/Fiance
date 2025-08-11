@@ -13,3 +13,5 @@ It is, however, clear what you should have software-wise:
     - Windows Server 2008 SP2, Windows Server 2008 R2 SP1 or later
     - Any Linux distribution which came out after 2012
   - Nicolas will primarily test it on an openSUSE Tumbleweed/Windows 11 system
+- Developer tools
+  - IntelliJ IDEA with the Swing UI Designer plugin
