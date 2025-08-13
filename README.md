@@ -15,3 +15,9 @@ It is, however, clear what you should have software-wise:
   - Nicolas will primarily test it on an openSUSE Tumbleweed/Windows 11 system
 - Developer tools
   - IntelliJ IDEA with the Swing UI Designer plugin
+- [Xerial's SQLite library](https://github.com/xerial/sqlite-jdbc)
+
+## Copyright notices
+
+- Xerial's SQLite library is licensed under both the [Apache 2.0](https://github.com/xerial/sqlite-jdbc/blob/master/LICENSE) and the [BSD 2-Clause](https://github.com/xerial/sqlite-jdbc/blob/master/LICENSE.zentus) licenses, Copyright © 2006 David Crawshaw. All rights reserved.
+- Windows is a (registered) trademark of Microsoft Corporation.
