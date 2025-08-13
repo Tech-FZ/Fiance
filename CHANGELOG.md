@@ -5,6 +5,7 @@
 - Added SQLite Xerial library, which is licensed under both the Apache 2.0 and the BSD-2-Clause licenses
 - Added SQLite functionality.
 - Added multi-platform file path checker.
+- Added .gitignore
 
 ## Version 0.1.0.1
 
