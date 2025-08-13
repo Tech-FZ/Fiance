@@ -1,5 +1,7 @@
 package com.lucienrowan.financemanager.core;
 
+import java.io.File;
+
 public class PlatformDetector {
     public static String getFilePath() {
         String filePath = System.getProperty("user.home");
@@ -20,8 +22,19 @@ public class PlatformDetector {
             filePath += ".local/share/Fiancé";
         }
 
-        // todo: create directory if nonexistant
-
+        createAppDirectory(filePath); // create directory if nonexistant
         return filePath;
+    }
+
+    private static void createAppDirectory(String filePath) {
+        File directory = new File(filePath);
+
+        if (!directory.exists() && directory.mkdir()) {
+            // todo: report that directory was created successfully
+        }
+
+        else {
+            // todo: report that directory already exists
+        }
     }
 }

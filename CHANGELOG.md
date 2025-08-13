@@ -6,6 +6,7 @@
 - Added SQLite functionality.
 - Added multi-platform file path checker.
 - Added .gitignore
+- Added a way to create the Fiancé directory.
 
 ## Version 0.1.0.1
 
