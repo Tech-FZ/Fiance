@@ -1,5 +1,9 @@
 # Fiancé changelog
 
+## Version 0.1.0.3
+
+- Added file checks to database connection initialiser.
+
 ## Version 0.1.0.2
 
 - Added SQLite Xerial library, which is licensed under both the Apache 2.0 and the BSD-2-Clause licenses
