@@ -4,6 +4,8 @@
 
 - Added file checks to database connection initialiser.
 - The exception messages on the database connection initialiser have been edited.
+- Made an enum for months.
+- Prepared time group table creation.
 
 ## Version 0.1.0.2
 
