@@ -3,6 +3,7 @@
 ## Version 0.1.0.3
 
 - Added file checks to database connection initialiser.
+- The exception messages on the database connection initialiser have been edited.
 
 ## Version 0.1.0.2
 

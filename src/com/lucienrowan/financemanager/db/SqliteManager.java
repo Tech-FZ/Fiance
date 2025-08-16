@@ -22,13 +22,14 @@ public class SqliteManager {
 
             return DriverManager.getConnection("jdbc:sqlite:" + filePath);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getLocalizedMessage(), "Error",
+            JOptionPane.showMessageDialog(null,
+                    e.getLocalizedMessage() + " This program will terminate", "Error",
                     JOptionPane.ERROR_MESSAGE);
 
             System.exit(e.getErrorCode());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                    e.getLocalizedMessage() + "This program will terminate", "Critical error",
+                    e.getLocalizedMessage() + " This program will terminate", "Critical error",
                     JOptionPane.ERROR_MESSAGE);
 
             System.exit(e.hashCode());
