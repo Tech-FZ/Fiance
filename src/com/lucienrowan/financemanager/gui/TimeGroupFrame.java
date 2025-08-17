@@ -1,5 +1,6 @@
 package com.lucienrowan.financemanager.gui;
 
+import com.lucienrowan.financemanager.objects.Months;
 import com.lucienrowan.financemanager.objects.TimeGroup;
 
 import javax.swing.*;
@@ -40,7 +41,7 @@ public class TimeGroupFrame extends JFrame {
     }
 
     private void continueWithSelectedTimeGroup() {
-        TimeGroup timeGroup = new TimeGroup((Integer) sbYear.getValue(), cbMonth.getSelectedIndex() + 1);
+        TimeGroup timeGroup = new TimeGroup((Integer) sbYear.getValue(), Months.values()[cbMonth.getSelectedIndex()]);
 
         // TODO: Check if said time group exists in database
         // TODO: If it exists, make user select revision (or create new one)

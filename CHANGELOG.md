@@ -1,5 +1,9 @@
 # Fiancé changelog
 
+## Version 0.1.0.4
+
+- Fixed an issue regarding the months
+
 ## Version 0.1.0.3
 
 - Added file checks to database connection initialiser.
