@@ -1,5 +1,12 @@
 # Fiancé changelog
 
+## Version 0.1.0.5
+
+- Prepared a time group iteration form.
+- The time group table is now officially created by the SqliteManager when necessary.
+- The time group retrieval is unfiltered, but functional for now.
+- Some todo comments have been removed from the TimeGroupFrame.
+
 ## Version 0.1.0.4
 
 - Fixed an issue regarding the months

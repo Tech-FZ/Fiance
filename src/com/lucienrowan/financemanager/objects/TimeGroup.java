@@ -41,4 +41,16 @@ public class TimeGroup {
     public int getId() {
         return id;
     }
+
+    public int getYear() {
+        return year;
+    }
+
+    public Months getMonth() {
+        return month;
+    }
+
+    public int getIteration() {
+        return iteration;
+    }
 }

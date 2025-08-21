@@ -21,7 +21,9 @@ public class SqliteManager {
                 // TODO: Report that file was created successfully
             }
 
-            return DriverManager.getConnection("jdbc:sqlite:" + filePath);
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:" + filePath);
+            CreateTablesIfNonexistent(connection);
+            return connection; // for further use
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,
                     e.getLocalizedMessage() + " This program will terminate.", "Error",
@@ -47,7 +49,7 @@ public class SqliteManager {
         String sql = "CREATE TABLE IF NOT EXISTS TimeGroup (" +
                      " id INTEGER PRIMARY KEY AUTOINCREMENT," +
                      " year INTEGER NOT NULL," +
-                     " month INTEGER NOT NULL CHECK (month >= 0 && month <= 11)," +
+                     " month INTEGER NOT NULL CHECK (month >= 0 & month <= 11)," +
                      " iteration INTEGER NOT NULL CHECK (iteration >= 0)" +
                      ");";
 

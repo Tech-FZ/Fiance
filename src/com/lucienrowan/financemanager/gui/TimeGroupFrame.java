@@ -43,11 +43,10 @@ public class TimeGroupFrame extends JFrame {
     private void continueWithSelectedTimeGroup() {
         TimeGroup timeGroup = new TimeGroup((Integer) sbYear.getValue(), Months.values()[cbMonth.getSelectedIndex()]);
 
-        // TODO: Check if said time group exists in database
-        // TODO: If it exists, make user select revision (or create new one)
-        // TODO: If it does not exist, ask user if time group should be created
+        // let user either select or create time group iterations
+        TgIterationFrame tgIterationFrame = new TgIterationFrame();
 
-        JOptionPane.showMessageDialog(this, "You would now continue, but that isn't implemented yet.",
-                "Functionality not implemented", JOptionPane.PLAIN_MESSAGE); // temporary
+        //JOptionPane.showMessageDialog(this, "You would now continue, but that isn't implemented yet.",
+          //      "Functionality not implemented", JOptionPane.PLAIN_MESSAGE); // temporary
     }
 }
