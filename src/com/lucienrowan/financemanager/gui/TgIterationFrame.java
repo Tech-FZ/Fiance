@@ -74,6 +74,14 @@ public class TgIterationFrame extends JFrame {
 
     public Object[][] getTimeGroupArray() {
         try {
+            if (timeGroups == null) {
+                JOptionPane.showMessageDialog(null,
+                        "There are no time groups since they are null.",
+                        "Notice", JOptionPane.INFORMATION_MESSAGE);
+
+                return new Object[1][3];
+            }
+
             Object[][] timeGroupArray = new Object[timeGroups.toArray().length][3];
 
             for (int i = 0; i < timeGroups.toArray().length; i++) {

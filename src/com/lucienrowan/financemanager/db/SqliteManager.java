@@ -48,8 +48,8 @@ public class SqliteManager {
     private static void CreateTimeGroupTableIfNonexistent(Connection connection) {
         String sql = "CREATE TABLE IF NOT EXISTS TimeGroup (" +
                      " id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                     " year INTEGER NOT NULL," +
-                     " month INTEGER NOT NULL CHECK (month >= 0 & month <= 11)," +
+                     " \"year\" INTEGER NOT NULL," +
+                     " \"month\" INTEGER NOT NULL CHECK (\"month\" >= 0 & \"month\" <= 11)," +
                      " iteration INTEGER NOT NULL CHECK (iteration >= 0)" +
                      ");";
 

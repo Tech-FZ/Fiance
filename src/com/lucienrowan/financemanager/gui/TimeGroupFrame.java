@@ -44,7 +44,7 @@ public class TimeGroupFrame extends JFrame {
         TimeGroup timeGroup = new TimeGroup((Integer) sbYear.getValue(), Months.values()[cbMonth.getSelectedIndex()]);
 
         // let user either select or create time group iterations
-        TgIterationFrame tgIterationFrame = new TgIterationFrame();
+        TgIterationFrame tgIterationFrame = new TgIterationFrame(timeGroup);
 
         //JOptionPane.showMessageDialog(this, "You would now continue, but that isn't implemented yet.",
           //      "Functionality not implemented", JOptionPane.PLAIN_MESSAGE); // temporary

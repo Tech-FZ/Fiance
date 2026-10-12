@@ -47,8 +47,8 @@ public class SqliteRetrieval {
         LinkedList<TimeGroup> timeGroups = new LinkedList<>();
 
         // We only filter based on the given month and year. We do not filter according to the id and/or the iteration.
-        String query = "SELECT * FROM TimeGroup WHERE year = " + filterTimeGroup.getYear() + " AND month = " +
-                filterTimeGroup.getMonth();
+        String query = "SELECT * FROM TimeGroup WHERE \"year\" = " + filterTimeGroup.getYear() + " AND \"month\" = " +
+                filterTimeGroup.getMonth().ordinal() + ";";
 
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
