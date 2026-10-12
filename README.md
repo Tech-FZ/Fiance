@@ -12,7 +12,7 @@ It is, however, clear what you should have software-wise:
     - Windows Vista SP2, Windows 7 SP1, Windows 8.x, Windows 10 or Windows 11
     - Windows Server 2008 SP2, Windows Server 2008 R2 SP1 or later
     - Any Linux distribution which came out after 2012
-  - Nicolas will primarily test it on an openSUSE Tumbleweed/Windows 11 system
+  - Nico will primarily test it on a Linux Mint/Windows 11 system
 - Developer tools
   - IntelliJ IDEA with the Swing UI Designer plugin
 - [Xerial's SQLite library](https://github.com/xerial/sqlite-jdbc)
