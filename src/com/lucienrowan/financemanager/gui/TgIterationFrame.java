@@ -11,6 +11,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.util.LinkedList;
 
@@ -26,12 +28,23 @@ public class TgIterationFrame extends JFrame {
     public TgIterationFrame() {
         initialiseTgIterationFrame();
         this.retrieveTimeGroups();
+        addEventListeners();
     }
 
     public TgIterationFrame(TimeGroup filterTimeGroup) {
         initialiseTgIterationFrame();
         this.filterTimeGroup = filterTimeGroup;
         this.retrieveTimeGroups();
+        addEventListeners();
+    }
+
+    private void addEventListeners() {
+        newBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     private void initialiseTgIterationFrame() {
