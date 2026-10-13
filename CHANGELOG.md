@@ -1,5 +1,9 @@
 # Fiancé changelog
 
+## Version 0.1.0.6
+
+- Preparing a new iteration form with insert.
+
 ## Version 0.1.0.5
 
 - Prepared a time group iteration form.

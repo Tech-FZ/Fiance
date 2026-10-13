@@ -78,6 +78,7 @@ public class TgIterationFrame extends JFrame {
 
         if (dbTimeGroups.isEmpty()) {
             // TODO: Create an iteration of the current month
+
         }
 
         else {
@@ -87,7 +88,10 @@ public class TgIterationFrame extends JFrame {
                 Object[] objTimeGroup = {timeGroup.getYear(), timeGroup.getMonth(), timeGroup.getIteration()};
                 timeGroups.add(objTimeGroup);
             }
+
+            // TODO: Make table model for iteration
         }
+
     }
 
     private void prepareColumns() {
