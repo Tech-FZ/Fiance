@@ -1,5 +1,10 @@
 package com.lucienrowan.financemanager.gui;
 
+import com.lucienrowan.financemanager.db.SqliteInsert;
+import com.lucienrowan.financemanager.db.SqliteRetrieval;
+import com.lucienrowan.financemanager.objects.Months;
+import com.lucienrowan.financemanager.objects.TimeGroup;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,6 +37,14 @@ public class NewIteration extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // save to database
+                TimeGroup timeGroup = new TimeGroup((int) sbYear.getValue(),
+                        Months.values()[cbMonth.getSelectedIndex()]);
+
+                int iteration = SqliteRetrieval.getLatestIterationOfTimeGroup(
+                        timeGroup.getYear(), timeGroup.getMonth()) + 1;
+
+                timeGroup.setIteration(iteration);
+                SqliteInsert.insertTimeGroup(timeGroup);
                 closeWindow();
             }
         });

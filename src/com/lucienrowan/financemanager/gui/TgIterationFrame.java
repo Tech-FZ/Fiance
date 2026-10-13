@@ -13,6 +13,8 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import java.sql.Connection;
 import java.util.LinkedList;
 
@@ -43,6 +45,16 @@ public class TgIterationFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 NewIteration newIteration = new NewIteration();
+
+                newIteration.addWindowStateListener(new WindowStateListener() {
+                    public void windowClosed(WindowEvent e) {
+                        retrieveTimeGroups();
+                    }
+
+                    public void windowStateChanged(WindowEvent e) {
+
+                    }
+                });
             }
         });
     }
