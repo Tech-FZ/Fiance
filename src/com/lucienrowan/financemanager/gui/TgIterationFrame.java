@@ -42,7 +42,7 @@ public class TgIterationFrame extends JFrame {
         newBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                NewIteration newIteration = new NewIteration();
             }
         });
     }
