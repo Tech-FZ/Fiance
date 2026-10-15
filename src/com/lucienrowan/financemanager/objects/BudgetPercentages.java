@@ -19,7 +19,7 @@ public class BudgetPercentages {
         this.id = id;
     }
 
-    public void setPercentage(double percentage) {
+    public void setPercentage(double percentage) throws IllegalArgumentException {
         if (percentage > 0 && percentage <= 1) {
             this.percentage = percentage;
         }

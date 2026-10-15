@@ -14,6 +14,7 @@ public class TimeGroupFrame extends JFrame {
     private JComboBox cbMonth;
     private JSpinner sbYear;
     private JButton btnContinue;
+    private JButton btnManageFinanceTypes;
 
     public TimeGroupFrame() {
         this.setContentPane(timeGroupPanel);
@@ -21,7 +22,7 @@ public class TimeGroupFrame extends JFrame {
         this.setTitle("Fiancé - Select Time Frame");
         this.setMonthOfCbMonth();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setMinimumSize(new Dimension(300, 200));
+        this.setMinimumSize(new Dimension(500, 200));
         this.setVisible(true);
 
         btnContinue.addActionListener(new ActionListener() {
