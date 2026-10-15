@@ -1,5 +1,6 @@
 package com.lucienrowan.financemanager.gui;
 
+import com.lucienrowan.financemanager.db.retrieval.SqliteFinanceTypeRetrieval;
 import com.lucienrowan.financemanager.objects.FinanceType;
 
 import javax.swing.*;
@@ -20,12 +21,12 @@ public class FinanceTypeManager extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setContentPane(financeTypeMgrPanel);
         setMinimumSize(new Dimension(500, 500));
+        retrieveFinanceTypes();
         setVisible(true);
     }
 
     private void retrieveFinanceTypes() {
-        financeTypes = new LinkedList<>();
-
-
+        financeTypes = SqliteFinanceTypeRetrieval.retrieveFinanceTypes();
+        financeTypeList.setListData(financeTypes.toArray());
     }
 }
