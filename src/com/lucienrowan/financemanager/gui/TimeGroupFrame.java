@@ -31,6 +31,13 @@ public class TimeGroupFrame extends JFrame {
                 continueWithSelectedTimeGroup();
             }
         });
+
+        btnManageFinanceTypes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FinanceTypeManager financeTypeManager = new FinanceTypeManager();
+            }
+        });
     }
 
     private void setMonthOfCbMonth() {

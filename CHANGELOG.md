@@ -6,6 +6,7 @@
 - Now also for when a new month isn't there.
 - Retrieve iterations possible
 - Prepare form for after the iteration
+- A finance type manager is in the works.
 
 ## Version 0.1.0.5
 
