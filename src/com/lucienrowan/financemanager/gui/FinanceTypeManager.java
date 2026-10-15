@@ -22,4 +22,10 @@ public class FinanceTypeManager extends JFrame {
         setMinimumSize(new Dimension(500, 500));
         setVisible(true);
     }
+
+    private void retrieveFinanceTypes() {
+        financeTypes = new LinkedList<>();
+
+
+    }
 }

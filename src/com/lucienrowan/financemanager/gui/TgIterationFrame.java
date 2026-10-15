@@ -1,9 +1,7 @@
 package com.lucienrowan.financemanager.gui;
 
-import com.lucienrowan.financemanager.core.PlatformDetector;
 import com.lucienrowan.financemanager.db.SqliteInsert;
-import com.lucienrowan.financemanager.db.SqliteManager;
-import com.lucienrowan.financemanager.db.SqliteRetrieval;
+import com.lucienrowan.financemanager.db.retrieval.SqliteTimeGroupRetrieval;
 import com.lucienrowan.financemanager.objects.TimeGroup;
 
 import javax.swing.*;
@@ -13,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
-import java.sql.Connection;
 import java.util.LinkedList;
 
 public class TgIterationFrame extends JFrame {
@@ -69,11 +66,11 @@ public class TgIterationFrame extends JFrame {
 
     private void retrieveTimeGroups() {
         if (filterTimeGroup == null) {
-            dbTimeGroups = SqliteRetrieval.retrieveTimeGroups();
+            dbTimeGroups = SqliteTimeGroupRetrieval.retrieveTimeGroups();
         }
 
         else {
-            dbTimeGroups = SqliteRetrieval.retrieveTimeGroups(filterTimeGroup);
+            dbTimeGroups = SqliteTimeGroupRetrieval.retrieveTimeGroups(filterTimeGroup);
         }
 
         if (dbTimeGroups.isEmpty()) {

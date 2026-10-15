@@ -43,6 +43,7 @@ public class SqliteManager {
 
     public static void CreateTablesIfNonexistent(Connection connection) {
         CreateTimeGroupTableIfNonexistent(connection);
+        CreateFinanceTypeTableIfNonexistent(connection);
     }
 
     private static void CreateTimeGroupTableIfNonexistent(Connection connection) {
@@ -52,6 +53,29 @@ public class SqliteManager {
                      " \"month\" INTEGER NOT NULL CHECK (\"month\" >= 0 & \"month\" <= 11)," +
                      " iteration INTEGER NOT NULL CHECK (iteration >= 0)" +
                      ");";
+
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(sql);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,
+                    e.getLocalizedMessage() + " This program will terminate.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+
+            System.exit(e.getErrorCode());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    e.getLocalizedMessage() + " This program will terminate.", "Critical error",
+                    JOptionPane.ERROR_MESSAGE);
+
+            System.exit(e.hashCode());
+        }
+    }
+
+    private static void CreateFinanceTypeTableIfNonexistent(Connection connection) {
+        String sql = "CREATE TABLE IF NOT EXISTS FinanceType (" +
+                " id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " \"name\" TEXT NOT NULL UNIQUE" +
+                ");";
 
         try (Statement statement = connection.createStatement()) {
             statement.execute(sql);

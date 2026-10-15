@@ -1,6 +1,7 @@
-package com.lucienrowan.financemanager.db;
+package com.lucienrowan.financemanager.db.retrieval;
 
 import com.lucienrowan.financemanager.core.PlatformDetector;
+import com.lucienrowan.financemanager.db.SqliteManager;
 import com.lucienrowan.financemanager.objects.Months;
 import com.lucienrowan.financemanager.objects.TimeGroup;
 
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
-public class SqliteRetrieval {
+public class SqliteTimeGroupRetrieval {
     public static LinkedList<TimeGroup> retrieveTimeGroups() {
         Connection connection = SqliteManager.getConnection(PlatformDetector.getFilePath());
         LinkedList<TimeGroup> timeGroups = new LinkedList<>();
