@@ -1,15 +1,13 @@
 package com.lucienrowan.financemanager.gui;
 
 import com.lucienrowan.financemanager.core.PlatformDetector;
+import com.lucienrowan.financemanager.db.SqliteInsert;
 import com.lucienrowan.financemanager.db.SqliteManager;
 import com.lucienrowan.financemanager.db.SqliteRetrieval;
 import com.lucienrowan.financemanager.objects.TimeGroup;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,7 +50,9 @@ public class TgIterationFrame extends JFrame {
                     }
 
                     public void windowStateChanged(WindowEvent e) {
-
+                        if (e.getNewState() == WindowEvent.WINDOW_CLOSED) {
+                            retrieveTimeGroups();
+                        }
                     }
                 });
             }
@@ -77,8 +77,8 @@ public class TgIterationFrame extends JFrame {
         }
 
         if (dbTimeGroups.isEmpty()) {
-            // TODO: Create an iteration of the current month
-
+            // Create an iteration of the current month
+            SqliteInsert.insertTimeGroup(filterTimeGroup);
         }
 
         else {
@@ -89,7 +89,15 @@ public class TgIterationFrame extends JFrame {
                 timeGroups.add(objTimeGroup);
             }
 
-            // TODO: Make table model for iteration
+            // Make table model for iteration
+            Object[] columnNames = {"Year", "Month", "Iteration"};
+            DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+            for (int i = 0; i < timeGroups.size(); i++) {
+                tableModel.addRow(timeGroups.get(i));
+            }
+
+            iterationTable.setModel(tableModel);
         }
 
     }

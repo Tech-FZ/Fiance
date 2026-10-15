@@ -3,6 +3,7 @@
 ## Version 0.1.0.6
 
 - Preparing a new iteration form with insert.
+- Now also for when a new month isn't there.
 
 ## Version 0.1.0.5
 
