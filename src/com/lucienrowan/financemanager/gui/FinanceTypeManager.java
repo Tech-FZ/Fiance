@@ -2,6 +2,7 @@ package com.lucienrowan.financemanager.gui;
 
 import com.lucienrowan.financemanager.db.SqliteInsert;
 import com.lucienrowan.financemanager.db.retrieval.SqliteFinanceTypeRetrieval;
+import com.lucienrowan.financemanager.gui.listcellrenderers.FinanceTypeListCellRenderer;
 import com.lucienrowan.financemanager.objects.FinanceType;
 
 import javax.swing.*;
@@ -38,6 +39,11 @@ public class FinanceTypeManager extends JFrame {
     private void retrieveFinanceTypes() {
         financeTypes = SqliteFinanceTypeRetrieval.retrieveFinanceTypes();
         financeTypeList.setListData(financeTypes.toArray());
+
+        FinanceTypeListCellRenderer financeTypeListCellRenderer =
+                new FinanceTypeListCellRenderer("getName");
+
+        financeTypeList.setCellRenderer(financeTypeListCellRenderer);
     }
 
     private void createFinanceType() {
