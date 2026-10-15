@@ -9,7 +9,7 @@
 - A finance type manager is in the works.
 - The finance type table is created when needed.
 - The time group database retrieval has been moved to its own package within the db package.
-- Finance types can now be retrieved and inserted.
+- Finance types can now be retrieved, updated and inserted.
 
 ## Version 0.1.0.5
 

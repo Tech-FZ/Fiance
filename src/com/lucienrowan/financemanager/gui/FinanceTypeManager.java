@@ -1,6 +1,7 @@
 package com.lucienrowan.financemanager.gui;
 
 import com.lucienrowan.financemanager.db.SqliteInsert;
+import com.lucienrowan.financemanager.db.SqliteUpdate;
 import com.lucienrowan.financemanager.db.retrieval.SqliteFinanceTypeRetrieval;
 import com.lucienrowan.financemanager.gui.listcellrenderers.FinanceTypeListCellRenderer;
 import com.lucienrowan.financemanager.objects.FinanceType;
@@ -34,6 +35,27 @@ public class FinanceTypeManager extends JFrame {
                 createFinanceType();
             }
         });
+
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    FinanceType selectedFinanceType = financeTypes.get(financeTypeList.getSelectedIndex());
+
+                    if (selectedFinanceType != null) {
+                        editFinanceType(financeTypes.get(financeTypeList.getSelectedIndex()));
+                    }
+
+                    else {
+                        JOptionPane.showMessageDialog(financeTypeMgrPanel, "Select a Finance Type");
+                    }
+                }
+
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(financeTypeMgrPanel, "Select a Finance Type");
+                }
+            }
+        });
     }
 
     private void retrieveFinanceTypes() {
@@ -52,6 +74,19 @@ public class FinanceTypeManager extends JFrame {
         if (financeTypeName != null) {
             FinanceType financeType = new FinanceType(financeTypeName);
             SqliteInsert.insertFinanceType(financeType);
+        }
+
+        retrieveFinanceTypes();
+    }
+
+    private void editFinanceType(FinanceType selectedFinanceType) {
+        String financeTypeName =
+                JOptionPane.showInputDialog("Please edit the name for the finance type.",
+                        selectedFinanceType.getName());
+
+        if (financeTypeName != null) {
+            selectedFinanceType.setName(financeTypeName);
+            SqliteUpdate.updateFinanceType(selectedFinanceType);
         }
 
         retrieveFinanceTypes();
