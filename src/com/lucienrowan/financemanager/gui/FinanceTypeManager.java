@@ -1,5 +1,6 @@
 package com.lucienrowan.financemanager.gui;
 
+import com.lucienrowan.financemanager.db.SqliteDelete;
 import com.lucienrowan.financemanager.db.SqliteInsert;
 import com.lucienrowan.financemanager.db.SqliteUpdate;
 import com.lucienrowan.financemanager.db.retrieval.SqliteFinanceTypeRetrieval;
@@ -43,7 +44,28 @@ public class FinanceTypeManager extends JFrame {
                     FinanceType selectedFinanceType = financeTypes.get(financeTypeList.getSelectedIndex());
 
                     if (selectedFinanceType != null) {
-                        editFinanceType(financeTypes.get(financeTypeList.getSelectedIndex()));
+                        editFinanceType(selectedFinanceType);
+                    }
+
+                    else {
+                        JOptionPane.showMessageDialog(financeTypeMgrPanel, "Select a Finance Type");
+                    }
+                }
+
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(financeTypeMgrPanel, "Select a Finance Type");
+                }
+            }
+        });
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    FinanceType selectedFinanceType = financeTypes.get(financeTypeList.getSelectedIndex());
+
+                    if (selectedFinanceType != null) {
+                        deleteFinanceType(selectedFinanceType);
                     }
 
                     else {
@@ -90,5 +112,19 @@ public class FinanceTypeManager extends JFrame {
         }
 
         retrieveFinanceTypes();
+    }
+
+    private void deleteFinanceType(FinanceType selectedFinanceType) {
+        int decision = JOptionPane.showConfirmDialog(this,
+                "Would you like to delete the selected finance type " + selectedFinanceType.getName() + "?");
+
+        if (decision == JOptionPane.YES_OPTION) {
+            SqliteDelete.deleteFinanceType(selectedFinanceType);
+
+            JOptionPane.showMessageDialog(this,
+                    "Finance Type " + selectedFinanceType.getName() + " has been deleted.");
+
+            retrieveFinanceTypes();
+        }
     }
 }
