@@ -110,4 +110,35 @@ public class SqliteTimeGroupRetrieval {
 
         return 0;
     }
+
+    public static boolean validateTimeGroup(TimeGroup timeGroup) {
+        Connection connection = SqliteManager.getConnection(PlatformDetector.getFilePath());
+
+        String query = "SELECT id FROM TimeGroup " +
+                "WHERE id = " + timeGroup.getId() + ";";
+
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // process the result set
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                return id == timeGroup.getId();
+            }
+        } catch (SQLException e) {
+            // In this case, an SQL exception should not be that fatal.
+            JOptionPane.showMessageDialog(null, e.getLocalizedMessage(), "SQLite Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            // Unknown exceptions are always treated as critical.
+            JOptionPane.showMessageDialog(null,
+                    e.getLocalizedMessage() + " This program will terminate.", "Critical error",
+                    JOptionPane.ERROR_MESSAGE);
+
+            // and therefore, they end the process.
+            System.exit(e.hashCode());
+        }
+
+        return false;
+    }
 }

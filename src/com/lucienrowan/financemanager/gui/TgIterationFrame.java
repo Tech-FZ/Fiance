@@ -54,6 +54,20 @@ public class TgIterationFrame extends JFrame {
                 });
             }
         });
+
+        selectBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    TimeGroup selectedTimeGroup = dbTimeGroups.get(iterationTable.getSelectedRow());
+                    IterationManager iterationManager = new IterationManager(selectedTimeGroup);
+                }
+
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(tgIterationPanel, "Please select an iteration.");
+                }
+            }
+        });
     }
 
     private void initialiseTgIterationFrame() {

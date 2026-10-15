@@ -10,6 +10,7 @@
 - The finance type table is created when needed.
 - The time group database retrieval has been moved to its own package within the db package.
 - Finance types can now be retrieved, updated, deleted and inserted.
+- Total income of a time group, as well as budget percentages, can now be retrieved and shown.
 
 ## Version 0.1.0.5
 
