@@ -1,5 +1,9 @@
 # Fiancé changelog
 
+## Version 0.1.0.7
+
+- Added a column showing the amount of the budget.
+
 ## Version 0.1.0.6
 
 - Preparing a new iteration form with insert.

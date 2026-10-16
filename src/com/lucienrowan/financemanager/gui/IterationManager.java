@@ -63,7 +63,7 @@ public class IterationManager extends JFrame {
         LinkedList<BudgetPercentages> budgetPercentagesList =
                 SqliteBudgetPercentageRetrieval.retrieveBudgetPercentages(timeGroup);
 
-        Object[] columns = new Object[]{"Finance Type", "Percentage"};
+        Object[] columns = new Object[]{"Finance Type", "Percentage", "Amount"};
         Object[][] rows;
 
         double totalPercentage = 0;
@@ -83,11 +83,13 @@ public class IterationManager extends JFrame {
         for (int i = 0; i < budgetPercentagesList.size(); i++) {
             rows[i][0] = budgetPercentagesList.get(i).getFinanceType().getName();
             rows[i][1] = budgetPercentagesList.get(i).getPercentage();
+            rows[i][2] = totalIncome * budgetPercentagesList.get(i).getPercentage();
         }
 
         if (totalPercentage < 1) {
             rows[rows.length - 1][0] = "Remaining";
             rows[rows.length - 1][1] = 1 - totalPercentage;
+            rows[rows.length - 1][2] = totalIncome * (1 - totalPercentage);
         }
 
         DefaultTableModel tableModel = new DefaultTableModel(rows, columns);
