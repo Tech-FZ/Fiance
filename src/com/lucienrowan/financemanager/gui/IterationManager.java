@@ -9,6 +9,8 @@ import com.lucienrowan.financemanager.db.retrieval.SqliteTimeGroupRetrieval;
 import com.lucienrowan.financemanager.objects.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 public class IterationManager extends JFrame {
@@ -34,6 +36,13 @@ public class IterationManager extends JFrame {
         setMinimumSize(new Dimension(600, 400));
         retrieveData();
         setVisible(true);
+
+        manageIncomeBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                IncomeManagerFrame incomeManagerFrame = new IncomeManagerFrame(timeGroup);
+            }
+        });
     }
 
     private void setTimeGroup(TimeGroup timeGroup) {

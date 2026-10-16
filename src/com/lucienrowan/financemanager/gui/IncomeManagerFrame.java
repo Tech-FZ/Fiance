@@ -4,6 +4,7 @@ import com.lucienrowan.financemanager.db.retrieval.SqliteTimeGroupRetrieval;
 import com.lucienrowan.financemanager.objects.TimeGroup;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class IncomeManagerFrame extends JFrame {
     private JPanel incomeManagerPanel;
@@ -15,7 +16,10 @@ public class IncomeManagerFrame extends JFrame {
     private TimeGroup timeGroup;
 
     public IncomeManagerFrame(TimeGroup timeGroup) {
-
+        setTitle("Fiancé - Income Manager");
+        setContentPane(incomeManagerPanel);
+        setMinimumSize(new Dimension(600, 300));
+        setVisible(true);
     }
 
     private void setTimeGroup(TimeGroup timeGroup) {
