@@ -3,6 +3,7 @@
 ## Version 0.1.0.7
 
 - Added a column showing the amount of the budget.
+- Started working on the income manager.
 
 ## Version 0.1.0.6
 
