@@ -7,16 +7,16 @@ public class Income {
     private int timeGroupId;
 
     public Income(String description, double amount, int timeGroupId) {
-        this.description = description;
-        this.timeGroupId = timeGroupId;
+        this.setDescription(description);
+        this.setTimeGroupId(timeGroupId);
         setAmount(amount);
     }
 
     public Income(String description, double amount, int timeGroupId, int id) {
-        this.description = description;
-        this.timeGroupId = timeGroupId;
+        this.setDescription(description);
+        this.setTimeGroupId(timeGroupId);
         setAmount(amount);
-        this.id = id;
+        this.setId(id);
     }
 
     public void setAmount(double amount) {
@@ -27,5 +27,33 @@ public class Income {
         else {
             throw new IllegalArgumentException("Amount cannot be negative.");
         }
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getTimeGroupId() {
+        return timeGroupId;
+    }
+
+    public void setTimeGroupId(int timeGroupId) {
+        this.timeGroupId = timeGroupId;
     }
 }
