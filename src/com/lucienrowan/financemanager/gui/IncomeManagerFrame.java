@@ -1,9 +1,10 @@
 package com.lucienrowan.financemanager.gui;
 
-import com.lucienrowan.financemanager.db.retrieval.SqliteBudgetPercentageRetrieval;
 import com.lucienrowan.financemanager.db.retrieval.SqliteIncomeRetrieval;
 import com.lucienrowan.financemanager.db.retrieval.SqliteTimeGroupRetrieval;
-import com.lucienrowan.financemanager.objects.BudgetPercentages;
+import com.lucienrowan.financemanager.events.ISubscriber;
+import com.lucienrowan.financemanager.events.args.IncomeDatabaseEvent;
+import com.lucienrowan.financemanager.objects.DatabaseMode;
 import com.lucienrowan.financemanager.objects.Income;
 import com.lucienrowan.financemanager.objects.TimeGroup;
 
@@ -13,12 +14,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.LinkedList;
 
-public class IncomeManagerFrame extends JFrame {
+public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeDatabaseEvent> {
     private JPanel incomeManagerPanel;
     private JTable incomeTable;
     private JButton createButton;
     private JButton editButton;
     private JButton deleteButton;
+    private LinkedList<Income> incomeList;
 
     private TimeGroup timeGroup;
 
@@ -34,18 +36,7 @@ public class IncomeManagerFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CreateIncomeFrame cif = new CreateIncomeFrame(timeGroup);
-
-
-
-//                cif.addWindowStateListener(new WindowStateListener() {
-//
-//                    @Override
-//                    public void windowStateChanged(WindowEvent e) {
-//                        if (e.getNewState() == WindowEvent.WINDOW_CLOSED) {
-//                            retrieveIncome();
-//                        }
-//                    }
-//                });
+                cif.getPublisher().subscribe(IncomeManagerFrame.this);
             }
         });
 
@@ -72,7 +63,7 @@ public class IncomeManagerFrame extends JFrame {
     }
 
     private void retrieveIncome() {
-        LinkedList<Income> incomeList = SqliteIncomeRetrieval.retrieveIncome(timeGroup);
+        incomeList = SqliteIncomeRetrieval.retrieveIncome(timeGroup);
 
         Object[] columns = new Object[]{"Description", "Amount"};
         Object[][] rows = new Object[incomeList.size()][columns.length];
@@ -85,6 +76,34 @@ public class IncomeManagerFrame extends JFrame {
         DefaultTableModel tableModel = new DefaultTableModel(rows, columns);
         incomeTable.setDefaultEditor(Object.class, null);
         incomeTable.setModel(tableModel);
-        incomeTable.repaint();
+    }
+
+    @Override
+    public void doOperation(IncomeDatabaseEvent e) {
+        if (e.getDatabaseMode() == DatabaseMode.DELETE) {
+            int incomeIndex = incomeList.indexOf(e.getIncome());
+
+            if (incomeIndex >= 0 && incomeIndex < incomeList.size()) {
+                incomeTable.remove(incomeIndex);
+            }
+        }
+
+        else if (e.getDatabaseMode() == DatabaseMode.INSERT) {
+            incomeList.add(e.getIncome());
+
+            Object[] columns = new Object[]{"Description", "Amount"};
+            Object[][] rows = new Object[incomeList.size()][columns.length];
+
+            for (int i = 0; i < incomeList.size(); i++) {
+                rows[i][0] = incomeList.get(i).getDescription();
+                rows[i][1] = incomeList.get(i).getAmount();
+            }
+
+            DefaultTableModel tableModel = new DefaultTableModel(rows, columns);
+            incomeTable.setDefaultEditor(Object.class, null);
+            incomeTable.setModel(tableModel);
+        }
+
+        e.getPublisher().unsubscribe(IncomeManagerFrame.this);
     }
 }

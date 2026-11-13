@@ -5,6 +5,7 @@
 - Added a column showing the amount of the budget.
 - Started working on the income manager.
 - You can create income entries now.
+- The income table automatically reloads when income entries are created.
 
 ## Version 0.1.0.6
 

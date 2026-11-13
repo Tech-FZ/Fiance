@@ -2,6 +2,9 @@ package com.lucienrowan.financemanager.gui;
 
 import com.lucienrowan.financemanager.db.SqliteInsert;
 import com.lucienrowan.financemanager.db.retrieval.SqliteTimeGroupRetrieval;
+import com.lucienrowan.financemanager.events.args.IncomeDatabaseEvent;
+import com.lucienrowan.financemanager.events.publishers.BasePublisher;
+import com.lucienrowan.financemanager.objects.DatabaseMode;
 import com.lucienrowan.financemanager.objects.Income;
 import com.lucienrowan.financemanager.objects.TimeGroup;
 
@@ -20,6 +23,7 @@ public class CreateIncomeFrame extends JFrame {
     private DecimalFormat df = new DecimalFormat("0.00");
     private Income income;
     private TimeGroup timeGroup;
+    private BasePublisher<IncomeDatabaseEvent> publisher = new BasePublisher<>();
 
     public CreateIncomeFrame(TimeGroup timeGroup) {
         initialiseWindow(timeGroup);
@@ -43,18 +47,22 @@ public class CreateIncomeFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 double amount = Double.parseDouble(amountField.getText());
+                IncomeDatabaseEvent ide;
 
                 if (income == null) {
                     income = new Income(descField.getText(), amount, timeGroup.getId());
                     SqliteInsert.insertIncome(income);
+                    ide = new IncomeDatabaseEvent(publisher, income, DatabaseMode.INSERT);
                 }
 
                 else {
                     income.setAmount(amount);
                     income.setDescription(descField.getText());
                     income.setTimeGroupId(timeGroup.getId());
+                    ide = new IncomeDatabaseEvent(publisher, income, DatabaseMode.UPDATE);
                 }
 
+                publisher.publish(ide);
                 dispose();
             }
         });
@@ -78,5 +86,9 @@ public class CreateIncomeFrame extends JFrame {
 
             dispose();
         }
+    }
+
+    public BasePublisher<IncomeDatabaseEvent> getPublisher() {
+        return publisher;
     }
 }
