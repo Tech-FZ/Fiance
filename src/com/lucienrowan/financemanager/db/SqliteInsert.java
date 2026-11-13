@@ -55,4 +55,27 @@ public class SqliteInsert {
             System.exit(e.hashCode());
         }
     }
+
+    public static void insertIncome(Income income) {
+        Connection connection = SqliteManager.getConnection(PlatformDetector.getFilePath());
+
+        String query = "INSERT INTO Income (description, amount, timeGroupId) " +
+                "VALUES ('" + income.getDescription() + "', " + income.getAmount() + ", " + income.getTimeGroupId() + ");";
+
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            // In this case, an SQL exception should not be that fatal.
+            JOptionPane.showMessageDialog(null, e.getLocalizedMessage(), "SQLite Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            // Unknown exceptions are always treated as critical.
+            JOptionPane.showMessageDialog(null,
+                    e.getLocalizedMessage() + " This program will terminate.", "Critical error",
+                    JOptionPane.ERROR_MESSAGE);
+
+            // and therefore, they end the process.
+            System.exit(e.hashCode());
+        }
+    }
 }

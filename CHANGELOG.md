@@ -4,7 +4,7 @@
 
 - Added a column showing the amount of the budget.
 - Started working on the income manager.
-- You can almost create income now. Almost.
+- You can create income entries now.
 
 ## Version 0.1.0.6
 

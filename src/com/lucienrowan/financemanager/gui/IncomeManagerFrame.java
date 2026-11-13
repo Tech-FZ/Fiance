@@ -10,8 +10,7 @@ import com.lucienrowan.financemanager.objects.TimeGroup;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.LinkedList;
 
 public class IncomeManagerFrame extends JFrame {
@@ -34,7 +33,19 @@ public class IncomeManagerFrame extends JFrame {
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateIncomeFrame cif = new CreateIncomeFrame();
+                CreateIncomeFrame cif = new CreateIncomeFrame(timeGroup);
+
+
+
+//                cif.addWindowStateListener(new WindowStateListener() {
+//
+//                    @Override
+//                    public void windowStateChanged(WindowEvent e) {
+//                        if (e.getNewState() == WindowEvent.WINDOW_CLOSED) {
+//                            retrieveIncome();
+//                        }
+//                    }
+//                });
             }
         });
 
@@ -42,7 +53,7 @@ public class IncomeManagerFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO: Get selected income entry
-                CreateIncomeFrame cif = new CreateIncomeFrame();
+                CreateIncomeFrame cif = new CreateIncomeFrame(timeGroup);
             }
         });
     }
@@ -74,5 +85,6 @@ public class IncomeManagerFrame extends JFrame {
         DefaultTableModel tableModel = new DefaultTableModel(rows, columns);
         incomeTable.setDefaultEditor(Object.class, null);
         incomeTable.setModel(tableModel);
+        incomeTable.repaint();
     }
 }

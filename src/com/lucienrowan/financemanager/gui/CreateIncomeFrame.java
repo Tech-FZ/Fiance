@@ -1,6 +1,9 @@
 package com.lucienrowan.financemanager.gui;
 
+import com.lucienrowan.financemanager.db.SqliteInsert;
+import com.lucienrowan.financemanager.db.retrieval.SqliteTimeGroupRetrieval;
 import com.lucienrowan.financemanager.objects.Income;
+import com.lucienrowan.financemanager.objects.TimeGroup;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,23 +19,45 @@ public class CreateIncomeFrame extends JFrame {
     private JButton cancelButton;
     private DecimalFormat df = new DecimalFormat("0.00");
     private Income income;
+    private TimeGroup timeGroup;
 
-    public CreateIncomeFrame() {
-        initialiseWindow();
+    public CreateIncomeFrame(TimeGroup timeGroup) {
+        initialiseWindow(timeGroup);
     }
 
-    public CreateIncomeFrame(Income income) {
+    public CreateIncomeFrame(TimeGroup timeGroup, Income income) {
         this.income = income;
-        initialiseWindow();
+        initialiseWindow(timeGroup);
         descField.setText(income.getDescription());
         amountField.setText(String.valueOf(income.getAmount()));
     }
 
-    private void initialiseWindow() {
+    private void initialiseWindow(TimeGroup timeGroup) {
         setTitle("Fiancé - Create Income");
         setMinimumSize(new Dimension(400, 250));
         setContentPane(createIncomePanel);
         setVisible(true);
+        setTimeGroup(timeGroup);
+
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double amount = Double.parseDouble(amountField.getText());
+
+                if (income == null) {
+                    income = new Income(descField.getText(), amount, timeGroup.getId());
+                    SqliteInsert.insertIncome(income);
+                }
+
+                else {
+                    income.setAmount(amount);
+                    income.setDescription(descField.getText());
+                    income.setTimeGroupId(timeGroup.getId());
+                }
+
+                dispose();
+            }
+        });
 
         cancelButton.addActionListener(new ActionListener() {
             @Override
@@ -40,5 +65,18 @@ public class CreateIncomeFrame extends JFrame {
                 dispose();
             }
         });
+    }
+
+    private void setTimeGroup(TimeGroup timeGroup) {
+        if (SqliteTimeGroupRetrieval.validateTimeGroup(timeGroup)) {
+            this.timeGroup = timeGroup;
+        }
+
+        else {
+            JOptionPane.showMessageDialog(this,
+                    "This time group is not valid. Leaving income editor...");
+
+            dispose();
+        }
     }
 }
