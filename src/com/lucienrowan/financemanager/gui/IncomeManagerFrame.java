@@ -64,7 +64,10 @@ public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeData
 
     private void retrieveIncome() {
         incomeList = SqliteIncomeRetrieval.retrieveIncome(timeGroup);
+        prepareTable();
+    }
 
+    private void prepareTable() {
         Object[] columns = new Object[]{"Description", "Amount"};
         Object[][] rows = new Object[incomeList.size()][columns.length];
 
@@ -90,18 +93,7 @@ public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeData
 
         else if (e.getDatabaseMode() == DatabaseMode.INSERT) {
             incomeList.add(e.getIncome());
-
-            Object[] columns = new Object[]{"Description", "Amount"};
-            Object[][] rows = new Object[incomeList.size()][columns.length];
-
-            for (int i = 0; i < incomeList.size(); i++) {
-                rows[i][0] = incomeList.get(i).getDescription();
-                rows[i][1] = incomeList.get(i).getAmount();
-            }
-
-            DefaultTableModel tableModel = new DefaultTableModel(rows, columns);
-            incomeTable.setDefaultEditor(Object.class, null);
-            incomeTable.setModel(tableModel);
+            prepareTable();
         }
 
         e.getPublisher().unsubscribe(IncomeManagerFrame.this);

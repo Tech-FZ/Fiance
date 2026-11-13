@@ -6,6 +6,7 @@
 - Started working on the income manager.
 - You can create income entries now.
 - The income table automatically reloads when income entries are created.
+- The income table creation had to be refactored for cleaner code.
 
 ## Version 0.1.0.6
 
