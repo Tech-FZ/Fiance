@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeDatabaseEvent> {
@@ -43,8 +44,8 @@ public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeData
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: Get selected income entry
-                CreateIncomeFrame cif = new CreateIncomeFrame(timeGroup);
+                // Get selected income entry
+                CreateIncomeFrame cif = new CreateIncomeFrame(timeGroup, incomeList.get(incomeTable.getSelectedRow()));
             }
         });
     }
@@ -93,6 +94,25 @@ public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeData
 
         else if (e.getDatabaseMode() == DatabaseMode.INSERT) {
             incomeList.add(e.getIncome());
+            prepareTable();
+        } else if (e.getDatabaseMode() == DatabaseMode.UPDATE) {
+            Income income = null;
+            Iterator<Income> iterator = incomeList.iterator();
+
+            for (Income i : incomeList) {
+                if (i.getId() == e.getIncome().getId()) {
+                    income = i;
+                    break;
+                }
+            }
+
+            if (income == null) {
+                return;
+            }
+
+            income.setDescription(e.getIncome().getDescription());
+            income.setAmount(e.getIncome().getAmount());
+            income.setTimeGroupId(e.getIncome().getTimeGroupId());
             prepareTable();
         }
 

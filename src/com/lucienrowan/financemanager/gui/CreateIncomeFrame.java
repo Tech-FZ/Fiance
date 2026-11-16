@@ -1,6 +1,7 @@
 package com.lucienrowan.financemanager.gui;
 
 import com.lucienrowan.financemanager.db.SqliteInsert;
+import com.lucienrowan.financemanager.db.SqliteUpdate;
 import com.lucienrowan.financemanager.db.retrieval.SqliteTimeGroupRetrieval;
 import com.lucienrowan.financemanager.events.args.IncomeDatabaseEvent;
 import com.lucienrowan.financemanager.events.publishers.BasePublisher;
@@ -32,6 +33,7 @@ public class CreateIncomeFrame extends JFrame {
     public CreateIncomeFrame(TimeGroup timeGroup, Income income) {
         this.income = income;
         initialiseWindow(timeGroup);
+        setTitle("Fiancé - Edit Income");
         descField.setText(income.getDescription());
         amountField.setText(String.valueOf(income.getAmount()));
     }
@@ -59,6 +61,7 @@ public class CreateIncomeFrame extends JFrame {
                     income.setAmount(amount);
                     income.setDescription(descField.getText());
                     income.setTimeGroupId(timeGroup.getId());
+                    SqliteUpdate.updateIncome(income);
                     ide = new IncomeDatabaseEvent(publisher, income, DatabaseMode.UPDATE);
                 }
 

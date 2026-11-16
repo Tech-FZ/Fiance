@@ -7,6 +7,7 @@
 - You can create income entries now.
 - The income table automatically reloads when income entries are created.
 - The income table creation had to be refactored for cleaner code.
+- You can edit income now.
 
 ## Version 0.1.0.6
 
