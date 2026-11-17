@@ -1,5 +1,6 @@
 package com.lucienrowan.financemanager.gui;
 
+import com.lucienrowan.financemanager.db.SqliteDelete;
 import com.lucienrowan.financemanager.db.retrieval.SqliteIncomeRetrieval;
 import com.lucienrowan.financemanager.db.retrieval.SqliteTimeGroupRetrieval;
 import com.lucienrowan.financemanager.events.ISubscriber;
@@ -45,8 +46,51 @@ public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeData
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Get selected income entry
-                CreateIncomeFrame cif = new CreateIncomeFrame(timeGroup, incomeList.get(incomeTable.getSelectedRow()));
-                cif.getPublisher().subscribe(IncomeManagerFrame.this);
+                try {
+                    Income income = incomeList.get(incomeTable.getSelectedRow());
+
+                    if (income != null) {
+                        CreateIncomeFrame cif = new CreateIncomeFrame(timeGroup, income);
+                        cif.getPublisher().subscribe(IncomeManagerFrame.this);
+                    }
+
+                    else {
+                        JOptionPane.showMessageDialog(IncomeManagerFrame.this,
+                                "There is no selected income.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(IncomeManagerFrame.this,
+                            "There is no selected income.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Income income = incomeList.get(incomeTable.getSelectedRow());
+
+                    if (income != null) {
+                        int msgBoxRes = JOptionPane.showConfirmDialog(IncomeManagerFrame.this,
+                                "Would you really like to delete the selected income entry?",
+                                "Question",  JOptionPane.YES_NO_OPTION);
+
+                        if (msgBoxRes == JOptionPane.YES_OPTION) {
+                            SqliteDelete.deleteIncome(income);
+                            incomeList.remove(income);
+                            prepareTable();
+                        }
+                    }
+
+                    else {
+                        JOptionPane.showMessageDialog(IncomeManagerFrame.this,
+                                "There is no selected income.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(IncomeManagerFrame.this,
+                            "There is no selected income.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
     }
