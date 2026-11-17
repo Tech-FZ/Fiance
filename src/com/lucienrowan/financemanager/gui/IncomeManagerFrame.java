@@ -104,7 +104,7 @@ public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeData
                 for (Income income : incomeList) {
                     totalAmount += income.getAmount();
                 }
-                
+
                 publisher.publish(new DoubleEvent(getPublisher(), totalAmount));
             }
         });

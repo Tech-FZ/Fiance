@@ -13,6 +13,8 @@ import com.lucienrowan.financemanager.objects.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 
 public class IterationManager extends JFrame implements ISubscriber<DoubleEvent> {
@@ -24,6 +26,7 @@ public class IterationManager extends JFrame implements ISubscriber<DoubleEvent>
     private JButton manageBudgetButton;
     private JButton createBudgetButton;
     private double totalIncome;
+    LinkedList<BudgetPercentages> budgetPercentagesList;
 
     private TimeGroup timeGroup;
 
@@ -72,7 +75,7 @@ public class IterationManager extends JFrame implements ISubscriber<DoubleEvent>
     }
 
     private void retrieveBudgets() {
-        LinkedList<BudgetPercentages> budgetPercentagesList =
+        budgetPercentagesList =
                 SqliteBudgetPercentageRetrieval.retrieveBudgetPercentages(timeGroup);
 
         Object[] columns = new Object[]{"Finance Type", "Percentage", "Amount"};
@@ -112,8 +115,15 @@ public class IterationManager extends JFrame implements ISubscriber<DoubleEvent>
 
     @Override
     public void doOperation(DoubleEvent e) {
-        incomeTextField.setText("");
         incomeTextField.setText(String.valueOf(e.getEventDouble()));
+        int rowCount = budgetTable.getRowCount();
+
+        for (int i = 0; i < rowCount; i++) {
+            budgetTable.setValueAt(
+                    e.getEventDouble() / Double.parseDouble(String.valueOf(budgetTable.getValueAt(i, 1))),
+                    i, 2);
+        }
+
         e.getPublisher().unsubscribe(this);
     }
 }

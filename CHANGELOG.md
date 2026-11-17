@@ -8,6 +8,7 @@
 - The income table automatically reloads when income entries are created, deleted or updated.
 - The income table creation had to be refactored for cleaner code.
 - You can edit and delete income now.
+- The iteration manager is now updated based on income.
 
 ## Version 0.1.0.6
 
