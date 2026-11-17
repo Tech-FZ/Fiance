@@ -4,7 +4,9 @@ import com.lucienrowan.financemanager.db.SqliteDelete;
 import com.lucienrowan.financemanager.db.retrieval.SqliteIncomeRetrieval;
 import com.lucienrowan.financemanager.db.retrieval.SqliteTimeGroupRetrieval;
 import com.lucienrowan.financemanager.events.ISubscriber;
+import com.lucienrowan.financemanager.events.args.DoubleEvent;
 import com.lucienrowan.financemanager.events.args.IncomeDatabaseEvent;
+import com.lucienrowan.financemanager.events.publishers.BasePublisher;
 import com.lucienrowan.financemanager.objects.DatabaseMode;
 import com.lucienrowan.financemanager.objects.Income;
 import com.lucienrowan.financemanager.objects.TimeGroup;
@@ -23,6 +25,7 @@ public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeData
     private JButton editButton;
     private JButton deleteButton;
     private LinkedList<Income> incomeList;
+    private BasePublisher<DoubleEvent>  publisher = new BasePublisher<>();
 
     private TimeGroup timeGroup;
 
@@ -93,6 +96,18 @@ public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeData
                 }
             }
         });
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                double totalAmount = 0;
+                for (Income income : incomeList) {
+                    totalAmount += income.getAmount();
+                }
+                
+                publisher.publish(new DoubleEvent(getPublisher(), totalAmount));
+            }
+        });
     }
 
     private void setTimeGroup(TimeGroup timeGroup) {
@@ -151,5 +166,9 @@ public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeData
         }
 
         e.getPublisher().unsubscribe(IncomeManagerFrame.this);
+    }
+
+    public BasePublisher<DoubleEvent> getPublisher() {
+        return publisher;
     }
 }

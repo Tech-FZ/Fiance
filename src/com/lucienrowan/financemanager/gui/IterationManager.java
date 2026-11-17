@@ -6,6 +6,8 @@ import javax.swing.table.DefaultTableModel;
 import com.lucienrowan.financemanager.db.retrieval.SqliteBudgetPercentageRetrieval;
 import com.lucienrowan.financemanager.db.retrieval.SqliteIncomeRetrieval;
 import com.lucienrowan.financemanager.db.retrieval.SqliteTimeGroupRetrieval;
+import com.lucienrowan.financemanager.events.ISubscriber;
+import com.lucienrowan.financemanager.events.args.DoubleEvent;
 import com.lucienrowan.financemanager.objects.*;
 
 import java.awt.*;
@@ -13,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-public class IterationManager extends JFrame {
+public class IterationManager extends JFrame implements ISubscriber<DoubleEvent> {
     private JPanel iterationManagerPanel;
     private JTextField incomeTextField;
     private JButton manageIncomeBtn;
@@ -41,6 +43,7 @@ public class IterationManager extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 IncomeManagerFrame incomeManagerFrame = new IncomeManagerFrame(timeGroup);
+                incomeManagerFrame.getPublisher().subscribe(IterationManager.this);
             }
         });
     }
@@ -105,5 +108,12 @@ public class IterationManager extends JFrame {
 
         budgetTable.setDefaultEditor(Object.class, null);
         budgetTable.setModel(tableModel);
+    }
+
+    @Override
+    public void doOperation(DoubleEvent e) {
+        incomeTextField.setText("");
+        incomeTextField.setText(String.valueOf(e.getEventDouble()));
+        e.getPublisher().unsubscribe(this);
     }
 }

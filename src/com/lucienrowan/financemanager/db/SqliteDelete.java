@@ -31,24 +31,10 @@ public class SqliteDelete {
         }
     }
 
-    public static void deleteIncome(Income income) {
+    public static void deleteIncome(Income income) throws SQLException {
         Connection connection = SqliteManager.getConnection(PlatformDetector.getFilePath());
-        String query = "DELETE FROM FinanceType WHERE \"id\" = " + income.getId() + ";";
-
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(query);
-        } catch (SQLException e) {
-            // In this case, an SQL exception should not be that fatal.
-            JOptionPane.showMessageDialog(null, e.getLocalizedMessage(), "SQLite Error",
-                    JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            // Unknown exceptions are always treated as critical.
-            JOptionPane.showMessageDialog(null,
-                    e.getLocalizedMessage() + " This program will terminate.", "Critical error",
-                    JOptionPane.ERROR_MESSAGE);
-
-            // and therefore, they end the process.
-            System.exit(e.hashCode());
-        }
+        String query = "DELETE FROM Income WHERE \"id\" = " + income.getId() + ";";
+        Statement statement = connection.createStatement();
+        statement.execute(query);
     }
 }
