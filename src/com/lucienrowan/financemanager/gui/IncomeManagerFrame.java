@@ -46,6 +46,7 @@ public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeData
             public void actionPerformed(ActionEvent e) {
                 // Get selected income entry
                 CreateIncomeFrame cif = new CreateIncomeFrame(timeGroup, incomeList.get(incomeTable.getSelectedRow()));
+                cif.getPublisher().subscribe(IncomeManagerFrame.this);
             }
         });
     }
@@ -96,23 +97,12 @@ public class IncomeManagerFrame extends JFrame implements ISubscriber<IncomeData
             incomeList.add(e.getIncome());
             prepareTable();
         } else if (e.getDatabaseMode() == DatabaseMode.UPDATE) {
-            Income income = null;
-            Iterator<Income> iterator = incomeList.iterator();
-
-            for (Income i : incomeList) {
-                if (i.getId() == e.getIncome().getId()) {
-                    income = i;
-                    break;
+            for (int i = 0; i < incomeList.size(); i++) {
+                if (incomeList.get(i).getId() == e.getIncome().getId()) {
+                    incomeList.set(i, e.getIncome());
                 }
             }
 
-            if (income == null) {
-                return;
-            }
-
-            income.setDescription(e.getIncome().getDescription());
-            income.setAmount(e.getIncome().getAmount());
-            income.setTimeGroupId(e.getIncome().getTimeGroupId());
             prepareTable();
         }
 
