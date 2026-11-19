@@ -3,6 +3,7 @@
 ## Version 0.1.0.8
 
 - You can now create budgets.
+- A bug has been fixed where the budgets can be bigger than the income in total.
 
 ## Version 0.1.0.7
 

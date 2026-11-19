@@ -128,7 +128,7 @@ public class IterationManager extends JFrame implements ISubscriber<DoubleEvent>
 
         for (int i = 0; i < rowCount; i++) {
             budgetTable.setValueAt(
-                    e.getEventDouble() / Double.parseDouble(String.valueOf(budgetTable.getValueAt(i, 1))),
+                    e.getEventDouble() * Double.parseDouble(String.valueOf(budgetTable.getValueAt(i, 1))),
                     i, 2);
         }
 
