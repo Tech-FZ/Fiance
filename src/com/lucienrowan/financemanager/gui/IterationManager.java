@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class IterationManager extends JFrame implements ISubscriber<DoubleEvent> {
@@ -30,7 +31,7 @@ public class IterationManager extends JFrame implements ISubscriber<DoubleEvent>
 
     private TimeGroup timeGroup;
 
-    public IterationManager(TimeGroup timeGroup) {
+    public IterationManager(TimeGroup timeGroup) throws SQLException {
         setContentPane(iterationManagerPanel);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -49,6 +50,13 @@ public class IterationManager extends JFrame implements ISubscriber<DoubleEvent>
                 incomeManagerFrame.getPublisher().subscribe(IterationManager.this);
             }
         });
+
+        createBudgetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CreateBudgetFrame createBudgetFrame = new CreateBudgetFrame(timeGroup);
+            }
+        });
     }
 
     private void setTimeGroup(TimeGroup timeGroup) {
@@ -64,7 +72,7 @@ public class IterationManager extends JFrame implements ISubscriber<DoubleEvent>
         }
     }
 
-    private void retrieveData() {
+    private void retrieveData() throws SQLException {
         retrieveTotalIncome();
         retrieveBudgets();
     }
@@ -74,7 +82,7 @@ public class IterationManager extends JFrame implements ISubscriber<DoubleEvent>
         incomeTextField.setText(String.valueOf(totalIncome));
     }
 
-    private void retrieveBudgets() {
+    private void retrieveBudgets() throws SQLException {
         budgetPercentagesList =
                 SqliteBudgetPercentageRetrieval.retrieveBudgetPercentages(timeGroup);
 

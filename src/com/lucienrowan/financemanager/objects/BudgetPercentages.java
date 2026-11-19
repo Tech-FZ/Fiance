@@ -1,5 +1,7 @@
 package com.lucienrowan.financemanager.objects;
 
+import com.lucienrowan.financemanager.db.retrieval.SqliteFinanceTypeRetrieval;
+
 public class BudgetPercentages {
     private int id;
     private int timeGroupId;
@@ -18,6 +20,7 @@ public class BudgetPercentages {
         this.financeTypeId = financeTypeId;
         this.setPercentage(percentage);
         this.setId(id);
+        //this.setFinanceType(SqliteFinanceTypeRetrieval.retrieveFinanceType(financeTypeId));
     }
 
     public void setPercentage(double percentage) throws IllegalArgumentException {
@@ -31,13 +34,13 @@ public class BudgetPercentages {
     }
 
     public FinanceType getFinanceType() {
-        return financeType;
+        return SqliteFinanceTypeRetrieval.retrieveFinanceType(financeTypeId);
     }
 
-    public void setFinanceType(FinanceType financeType) {
-        this.financeType = financeType;
-        this.financeTypeId = financeTypeId;
-    }
+//    public void setFinanceType(FinanceType financeType) {
+//        this.financeType = financeType;
+//        //this.financeTypeId = financeType.getId();
+//    }
 
     public double getPercentage() {
         return percentage;

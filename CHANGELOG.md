@@ -1,5 +1,9 @@
 # Fiancé changelog
 
+## Version 0.1.0.8
+
+- You can now create budgets.
+
 ## Version 0.1.0.7
 
 - Added a column showing the amount of the budget.

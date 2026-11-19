@@ -63,8 +63,11 @@ public class TgIterationFrame extends JFrame {
                     IterationManager iterationManager = new IterationManager(selectedTimeGroup);
                 }
 
-                catch (Exception ex) {
+                catch (IndexOutOfBoundsException ex) {
                     JOptionPane.showMessageDialog(tgIterationPanel, "Please select an iteration.");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(tgIterationPanel, ex.getMessage(), "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

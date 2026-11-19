@@ -33,10 +33,8 @@ public class SqliteFinanceTypeRetrieval {
                     JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                    e.getLocalizedMessage() + " This program will terminate.", "Critical error",
+                    e.getLocalizedMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
-
-            System.exit(e.hashCode());
         }
 
         return financeTypes;
@@ -46,7 +44,7 @@ public class SqliteFinanceTypeRetrieval {
         Connection connection = SqliteManager.getConnection(PlatformDetector.getFilePath());
         FinanceType financeType = null;
 
-        String query = "SELECT TOP(1) * FROM FinanceType WHERE id = " + id + ";";
+        String query = "SELECT * FROM FinanceType WHERE id = " + id + " LIMIT 1;";
 
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
@@ -61,10 +59,8 @@ public class SqliteFinanceTypeRetrieval {
                     JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                    e.getLocalizedMessage() + " This program will terminate.", "Critical error",
+                    e.getLocalizedMessage(), "Error",
                     JOptionPane.ERROR_MESSAGE);
-
-            System.exit(e.hashCode());
         }
 
         return financeType;
